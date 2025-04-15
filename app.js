@@ -424,7 +424,7 @@ function madrid() {
         r_e("madrid").innerHTML = "<p> Team not found. </p>";
       } else {
         let team = doc.data();
-        let html = `<p>Name: ${team.name}</p> <p>Fans: ${team.fans_count}</p> <p>City: ${team.city}</p> <p>Country: ${team.country}</p> <p>Color: ${team.color.away} & ${team.color.home}</p> <p>Scorers: ${team.top_scorers}</p>`;
+        let html = `<p>Name: ${team.name}</p> <p>Fans: ${team.fans_count}</p> <p>City: ${team.city}</p> <p>Country: ${team.country}</p> <p>Color: Away: ${team.color.away} Home: ${team.color.home}</p> <p>Scorers: ${team.top_scorers}</p>`;
         r_e("madrid").innerHTML = html;
       }
     });
@@ -443,7 +443,7 @@ function barcelona() {
         r_e("barcelona").innerHTML = "<p> Team not found. </p>";
       } else {
         let team = doc.data();
-        let html = `<p>Name: ${team.name}</p> <p>Fans: ${team.fans_count}</p> <p>City: ${team.city}</p> <p>Country: ${team.country}</p> <p>Color: ${team.color.away} & ${team.color.home}</p> <p>Scorers: ${team.top_scorers}</p>`;
+        let html = `<p>Name: ${team.name}</p> <p>Fans: ${team.fans_count}</p> <p>City: ${team.city}</p> <p>Country: ${team.country}</p> <p>Color: Away: ${team.color.away} Home: ${team.color.home}</p> <p>Scorers: ${team.top_scorers}</p>`;
         r_e("barcelona").innerHTML = html;
       }
     });
