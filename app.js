@@ -1,57 +1,57 @@
 // console.log(firebase);
 
-document.querySelector("#submit").addEventListener("click", () => {
-  let name = document.querySelector("#name").value;
-  let age = document.querySelector("#age").value;
-  let color = document.querySelector("#favcolor").value;
+// document.querySelector("#submit").addEventListener("click", () => {
+//   let name = document.querySelector("#name").value;
+//   let age = document.querySelector("#age").value;
+//   let color = document.querySelector("#favcolor").value;
 
-  let user = {
-    name: name,
-    age: parseInt(age),
-    color: color,
-  };
+//   let user = {
+//     name: name,
+//     age: parseInt(age),
+//     color: color,
+//   };
 
-  //   console.log(user);
+//   //   console.log(user);
 
-  // save the user into the DB
-  db.collection("mypeople")
-    .add(user)
-    .then(() => {
-      alert("New user added!");
-      show_people();
-    });
-});
+//   // save the user into the DB
+//   db.collection("mypeople")
+//     .add(user)
+//     .then(() => {
+//       alert("New user added!");
+//       show_people();
+//     });
+// });
 
 // show people stored in our DB
 
-function show_people() {
-  // data retrieval
-  db.collection("mypeople")
-    .get()
-    .then((mydata) => {
-      let docs = mydata.docs;
+// function show_people() {
+//   // data retrieval
+//   db.collection("mypeople")
+//     .get()
+//     .then((mydata) => {
+//       let docs = mydata.docs;
 
-      let html = ``;
-      //   loop though the docs array
-      docs.forEach((d) => {
-        // console.log(d.data().name);
-        html += `<p class="p-3">${d.data().name} is ${
-          d.data().age
-        } years old. <span class="subtitle m-4">${d.id}</span> 
-        <button class="button is-danger is-pulled-right" onclick="del_doc('${
-          d.id
-        }')">X</button>
-        
-        </p>`;
-      });
-      //   console.log(html);
+//       let html = ``;
+//       //   loop though the docs array
+//       docs.forEach((d) => {
+//         // console.log(d.data().name);
+//         html += `<p class="p-3">${d.data().name} is ${
+//           d.data().age
+//         } years old. <span class="subtitle m-4">${d.id}</span>
+//         <button class="button is-danger is-pulled-right" onclick="del_doc('${
+//           d.id
+//         }')">X</button>
 
-      document.querySelector("#all_people").innerHTML = html;
-    });
-}
+//         </p>`;
+//       });
+//       //   console.log(html);
 
-// call the function
-show_people();
+//       document.querySelector("#all_people").innerHTML = html;
+//     });
+// }
+
+// // call the function
+// show_people();
 
 // delete the user test
 // delete()
@@ -63,14 +63,18 @@ show_people();
 //     alert("user deleted");
 //   });
 
-function del_doc(docid) {
-  db.collection("mypeople")
-    .doc(docid)
-    .delete()
-    .then(() => {
-      alert("user deleted");
-      show_people();
-    });
+// function del_doc(docid) {
+//   db.collection("mypeople")
+//     .doc(docid)
+//     .delete()
+//     .then(() => {
+//       alert("user deleted");
+//       show_people();
+//     });
+// }
+
+function r_e(id) {
+  return document.querySelector(`#${id}`);
 }
 
 // In-Class Activity
@@ -91,169 +95,244 @@ let rm = {
 // Task 2
 
 // 1. all teams in spain
+function spain_teams() {
+  db.collection("teams")
+    .where("country", "==", "spain")
+    .get()
+    .then((data) => {
+      let mydocs = data.docs;
+      let html = "";
 
-// db.collection("teams")
-//   .where("country", "==", "spain")
-//   .get()
-//   .then((data) => {
-//     let mydocs = data.docs;
-//     // if no result
-//     if (mydocs.length == 0) {
-//       console.log("no data returned");
-//       return;
-//     }
+      if (mydocs.length == 0) {
+        html = "<p>No teams found</p>";
+      } else {
+        mydocs.forEach((d, i) => {
+          let team = d.data();
+          html += `<p>${i + 1}. ${team.name}</p>`;
+        });
+      }
+      // mydocs.forEach((d) => {
+      //   console.log(d.data());
+      // });
+      r_e("spain").innerHTML = html;
+    });
+}
 
-//     mydocs.forEach((d) => {
-//       console.log(d.data());
-//     });
-//   });
+spain_teams();
 
 // 2. all teams in Madrid, Spain
+function madrid_spain() {
+  db.collection("teams")
+    .where("country", "==", "spain")
+    .where("city", "==", "madrid")
+    .get()
+    .then((data) => {
+      let mydocs = data.docs;
+      let html = "";
+      if (mydocs.length == 0) {
+        html = "<p>No teams found</p>";
+      } else {
+        mydocs.forEach((d, i) => {
+          let team = d.data();
+          html += `<p>${i + 1}. ${team.name}</p>`;
+        });
+      }
+      // mydocs.forEach((d) => {
+      //   console.log(d.data());
+      // });
+      r_e("madrid_spain").innerHTML = html;
+    });
+}
 
-// db.collection("teams")
-//   .where("country", "==", "spain")
-//   .where("city", "==", "madrid")
-//   .get()
-//   .then((data) => {
-//     let mydocs = data.docs;
-//     // if no result
-//     if (mydocs.length == 0) {
-//       console.log("no data returned");
-//       return;
-//     }
-
-//     mydocs.forEach((d) => {
-//       console.log(d.data());
-//     });
-//   });
+madrid_spain();
 
 // 3. all national teams
+function national() {
+  db.collection("teams")
+    .where("name", "in", ["argentina national team", "brazil national team"])
+    .get()
+    .then((data) => {
+      let mydocs = data.docs;
+      let html = "";
+      if (mydocs.length == 0) {
+        html = "<p>No teams found</p>";
+      } else {
+        mydocs.forEach((d, i) => {
+          let team = d.data();
+          html += `<p>${i + 1}. ${team.name}</p>`;
+        });
+      }
 
-// db.collection("teams")
-//   .where("name", "in", ["argentina national team", "brazil national team"])
-//   .get()
-//   .then((data) => {
-//     let mydocs = data.docs;
-//     // if no result
-//     if (mydocs.length == 0) {
-//       console.log("no data returned");
-//       return;
-//     }
+      // mydocs.forEach((d) => {
+      //   console.log(d.data());
+      // });
+      r_e("national").innerHTML = html;
+    });
+}
 
-//     mydocs.forEach((d) => {
-//       console.log(d.data());
-//     });
-//   });
+national();
 
 // 4. all teams not in spain
+function not_spain() {
+  db.collection("teams")
+    .where("country", "not-in", ["spain"])
+    .get()
+    .then((data) => {
+      let mydocs = data.docs;
+      let html = "";
+      if (mydocs.length == 0) {
+        html = "<p>No teams found</p>";
+      } else {
+        mydocs.forEach((d, i) => {
+          let team = d.data();
+          html += `<p>${i + 1}. ${team.name}</p>`;
+        });
+      }
 
-// db.collection("teams")
-//   .where("country", "not-in", ["spain"])
-//   .get()
-//   .then((data) => {
-//     let mydocs = data.docs;
-//     // if no result
-//     if (mydocs.length == 0) {
-//       console.log("no data returned");
-//       return;
-//     }
+      // mydocs.forEach((d) => {
+      //   console.log(d.data());
+      // });
+      r_e("not_spain").innerHTML = html;
+    });
+}
 
-//     mydocs.forEach((d) => {
-//       console.log(d.data());
-//     });
-//   });
+not_spain();
 
 // 5. all teams not in spain or england
+function not_spain_eng() {
+  db.collection("teams")
+    .where("country", "not-in", ["spain", "england"])
+    .get()
+    .then((data) => {
+      let mydocs = data.docs;
+      let html = "";
+      if (mydocs.length == 0) {
+        html = "<p>No teams found</p>";
+      } else {
+        mydocs.forEach((d, i) => {
+          let team = d.data();
+          html += `<p>${i + 1}. ${team.name}</p>`;
+        });
+      }
 
-// db.collection("teams")
-//   .where("country", "not-in", ["spain", "england"])
-//   .get()
-//   .then((data) => {
-//     let mydocs = data.docs;
-//     // if no result
-//     if (mydocs.length == 0) {
-//       console.log("no data returned");
-//       return;
-//     }
+      // mydocs.forEach((d) => {
+      //   console.log(d.data());
+      // });
+      r_e("not_spain_eng").innerHTML = html;
+    });
+}
 
-//     mydocs.forEach((d) => {
-//       console.log(d.data());
-//     });
-//   });
+not_spain_eng();
 
 // 6. all teams in spain with more than 700M fans
+function spain_700() {
+  db.collection("teams")
+    .where("country", "==", "spain")
+    .where("fans_count", ">=", 700)
+    .get()
+    .then((data) => {
+      let mydocs = data.docs;
+      let html = "";
+      if (mydocs.length == 0) {
+        html = "<p>No teams found</p>";
+      } else {
+        mydocs.forEach((d, i) => {
+          let team = d.data();
+          html += `<p>${i + 1}. ${team.name}</p>`;
+        });
+      }
 
-// db.collection("teams")
-//   .where("country", "==", "spain")
-//   .where("fans_count", ">=", 700)
-//   .get()
-//   .then((data) => {
-//     let mydocs = data.docs;
-//     // if no result
-//     if (mydocs.length == 0) {
-//       console.log("no data returned");
-//       return;
-//     }
+      // mydocs.forEach((d) => {
+      //   console.log(d.data());
+      // });
+      r_e("spain_700").innerHTML = html;
+    });
+}
 
-//     mydocs.forEach((d) => {
-//       console.log(d.data());
-//     });
-//   });
+spain_700();
 
 // 7. all teams with fans in the range of 500M and 600M
+function fans_500_600() {
+  db.collection("teams")
+    .where("fans_count", ">=", 500)
+    .where("fans_count", "<=", 600)
+    .get()
+    .then((data) => {
+      let mydocs = data.docs;
+      let html = "";
+      if (mydocs.length == 0) {
+        html = "<p>No teams found</p>";
+      } else {
+        mydocs.forEach((d, i) => {
+          let team = d.data();
+          html += `<p>${i + 1}. ${team.name}</p>`;
+        });
+      }
 
-// db.collection("teams")
-//   .where("fans_count", ">=", 500)
-//   .where("fans_count", "<=", 600)
-//   .get()
-//   .then((data) => {
-//     let mydocs = data.docs;
-//     // if no result
-//     if (mydocs.length == 0) {
-//       console.log("no data returned");
-//       return;
-//     }
+      // mydocs.forEach((d) => {
+      //   console.log(d.data());
+      // });
+      r_e("fans_500_600").innerHTML = html;
+    });
+}
 
-//     mydocs.forEach((d) => {
-//       console.log(d.data());
-//     });
-//   });
+fans_500_600();
 
 // 8. all teams where Ronaldo is a top scorer
+function ronaldo() {
+  db.collection("teams")
+    .where("top_scorers", "array-contains", "ronaldo")
+    .get()
+    .then((data) => {
+      let mydocs = data.docs;
+      let html = "";
+      if (mydocs.length == 0) {
+        html = "<p>No teams found</p>";
+      } else {
+        mydocs.forEach((d, i) => {
+          let team = d.data();
+          html += `<p>${i + 1}. ${team.name}</p>`;
+        });
+      }
 
-// db.collection("teams")
-//   .where("top_scorers", "array-contains", "ronaldo")
-//   .get()
-//   .then((data) => {
-//     let mydocs = data.docs;
-//     // if no result
-//     if (mydocs.length == 0) {
-//       console.log("no data returned");
-//       return;
-//     }
+      // mydocs.forEach((d) => {
+      //   console.log(d.data());
+      // });
+      r_e("ronaldo").innerHTML = html;
+    });
+}
 
-//     mydocs.forEach((d) => {
-//       console.log(d.data());
-//     });
-//   });
+ronaldo();
 
 // 9. all teams where Ronaldo, Maradona, or Messi is a top scorer
+function ronaldo_maradona_messi() {
+  db.collection("teams")
+    .where("top_scorers", "array-contains-any", [
+      "ronaldo",
+      "maradona",
+      "messi",
+    ])
+    .get()
+    .then((data) => {
+      let mydocs = data.docs;
+      let html = "";
+      if (mydocs.length == 0) {
+        html = "<p>No teams found</p>";
+      } else {
+        mydocs.forEach((d, i) => {
+          let team = d.data();
+          html += `<p>${i + 1}. ${team.name}</p>`;
+        });
+      }
 
-// db.collection("teams")
-//   .where("top_scorers", "array-contains-any", ["ronaldo", "maradona", "messi"])
-//   .get()
-//   .then((data) => {
-//     let mydocs = data.docs;
-//     // if no result
-//     if (mydocs.length == 0) {
-//       console.log("no data returned");
-//       return;
-//     }
+      // mydocs.forEach((d) => {
+      //   console.log(d.data());
+      // });
+      r_e("ronaldo_maradona_messi").innerHTML = html;
+    });
+}
 
-//     mydocs.forEach((d) => {
-//       console.log(d.data());
-//     });
-//   });
+ronaldo_maradona_messi();
 
 // Task 3
 
