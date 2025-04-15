@@ -412,3 +412,41 @@ ronaldo_maradona_messi();
 // db.collection("teams").doc("pqkiGYPom5fw6JhjDi17").update({
 //   "color.away": "pink",
 // });
+
+function madrid() {
+  const teamId = "oNRhOC8HcKdG4b1VwXD1";
+
+  db.collection("teams")
+    .doc(teamId)
+    .get()
+    .then((doc) => {
+      if (!doc.exists) {
+        r_e("madrid").innerHTML = "<p> Team not found. </p>";
+      } else {
+        let team = doc.data();
+        let html = `<p>Name: ${team.name}</p> <p>Fans: ${team.fans_count}</p> <p>City: ${team.city}</p> <p>Country: ${team.country}</p> <p>Color: ${team.color.away} & ${team.color.home}</p> <p>Scorers: ${team.top_scorers}</p>`;
+        r_e("madrid").innerHTML = html;
+      }
+    });
+}
+
+madrid();
+
+function barcelona() {
+  const teamId = "pqkiGYPom5fw6JhjDi17";
+
+  db.collection("teams")
+    .doc(teamId)
+    .get()
+    .then((doc) => {
+      if (!doc.exists) {
+        r_e("barcelona").innerHTML = "<p> Team not found. </p>";
+      } else {
+        let team = doc.data();
+        let html = `<p>Name: ${team.name}</p> <p>Fans: ${team.fans_count}</p> <p>City: ${team.city}</p> <p>Country: ${team.country}</p> <p>Color: ${team.color.away} & ${team.color.home}</p> <p>Scorers: ${team.top_scorers}</p>`;
+        r_e("barcelona").innerHTML = html;
+      }
+    });
+}
+
+barcelona();
