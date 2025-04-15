@@ -90,7 +90,7 @@ let rm = {
 
 // Task 2
 
-// all teams in spain
+// 1. all teams in spain
 
 // db.collection("teams")
 //   .where("country", "==", "spain")
@@ -108,7 +108,7 @@ let rm = {
 //     });
 //   });
 
-// all teams in Madrid, Spain
+// 2. all teams in Madrid, Spain
 
 // db.collection("teams")
 //   .where("country", "==", "spain")
@@ -127,7 +127,7 @@ let rm = {
 //     });
 //   });
 
-// all national teams
+// 3. all national teams
 
 // db.collection("teams")
 //   .where("name", "in", ["argentina national team", "brazil national team"])
@@ -145,7 +145,7 @@ let rm = {
 //     });
 //   });
 
-// all teams not in spain
+// 4. all teams not in spain
 
 // db.collection("teams")
 //   .where("country", "not-in", ["spain"])
@@ -163,7 +163,7 @@ let rm = {
 //     });
 //   });
 
-// all teams not in spain or england
+// 5. all teams not in spain or england
 
 // db.collection("teams")
 //   .where("country", "not-in", ["spain", "england"])
@@ -181,7 +181,7 @@ let rm = {
 //     });
 //   });
 
-// all teams in spain with more than 700M fans
+// 6. all teams in spain with more than 700M fans
 
 // db.collection("teams")
 //   .where("country", "==", "spain")
@@ -200,7 +200,7 @@ let rm = {
 //     });
 //   });
 
-// all teams with fans in the range of 500M and 600M
+// 7. all teams with fans in the range of 500M and 600M
 
 // db.collection("teams")
 //   .where("fans_count", ">=", 500)
@@ -219,7 +219,7 @@ let rm = {
 //     });
 //   });
 
-// all teams where Ronaldo is a top scorer
+// 8. all teams where Ronaldo is a top scorer
 
 // db.collection("teams")
 //   .where("top_scorers", "array-contains", "ronaldo")
@@ -237,7 +237,7 @@ let rm = {
 //     });
 //   });
 
-// all teams where Ronaldo, Maradona, or Messi is a top scorer
+// 9. all teams where Ronaldo, Maradona, or Messi is a top scorer
 
 // db.collection("teams")
 //   .where("top_scorers", "array-contains-any", ["ronaldo", "maradona", "messi"])
